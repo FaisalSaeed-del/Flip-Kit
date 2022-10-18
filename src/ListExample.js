@@ -133,18 +133,21 @@ const ListExample = () => {
           </fieldset>
         </div>
         <div>
-          {!!state.filteredIds.length && (
-            <button
-              className="fm-show-all"
-              onClick={() => {
-                setState({
-                  filteredIds: [],
-                });
-              }}
-            >
-              show all cards
-            </button>
-          )}
+          {" "}
+          {state.filteredIds ||
+            [] ||
+            (state.length > 0 && (
+              <button
+                className="fm-show-all"
+                onClick={() => {
+                  setState({
+                    filteredIds: [],
+                  });
+                }}
+              >
+                show all cards
+              </button>
+            ))}
         </div>
 
         <Flipped flipId="list">
@@ -152,7 +155,12 @@ const ListExample = () => {
             <Flipped inverseFlipId="list">
               <ul className="list-contents">
                 {[...data]
-                  .filter((d) => !state.filteredIds.includes(d.id))
+                  .filter(
+                    (d) =>
+                      state.filteredIds ||
+                      [] ||
+                      !state.filteredIds.includes(d.id)
+                  )
                   .sort((a, b) => {
                     if (state.sort === "asc") {
                       return a.id - b.id;
