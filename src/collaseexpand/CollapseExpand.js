@@ -16,9 +16,11 @@ const CollapseExpand = () => {
           <div className="item" onClick={() => toggle(i)}>
             <div className="title">
               <h2>{item.question}</h2>
-              <span>+</span>
+              <span>{selected === i ? "-" : "+"}</span>
             </div>
-            <div className="content">{item.answer}</div>
+            <div className={selected === i ? "content show" : "content"}>
+              {item.answer}
+            </div>
           </div>
         ))}
       </div>
